@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 
 app.get("/file/:filename", (req, res) => {
   fs.readFile(`/file/${req.params.filename}`, "utf-8", (err, filedata) => {
-    res.render("show");
+    res.render('show', { filename: req.params.filename, filedata: filedata });
   });
 });
 
@@ -32,6 +32,6 @@ app.post("/create", (req, res) => {
   );
 });
 
-app.listen(8080 , () => {
+app.listen(8080, () => {
   console.log("Server is running on port 3400");
 });
