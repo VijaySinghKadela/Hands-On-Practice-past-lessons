@@ -17,7 +17,18 @@ app.get("/", (req, res) => {
 
 app.get("/file/:filename", (req, res) => {
   fs.readFile(`/file/${req.params.filename}`, "utf-8", (err, filedata) => {
-    res.render('show', { filename: req.params.filename, filedata: filedata });
+    res.render("show", { filename: req.params.filename, filedata: filedata });
+  });
+});
+
+app.get("/edit/:filename", (req, res) => {
+  res.render("edit", { filename: req.params.filename });
+});
+
+app.post("/edit", (req, res) => {
+  fs.rename(`./file/${req.body.previous}`, `./file/${req.body.new}`, (err) => {
+    if(err) console.error(err);
+    res.redirect("/");
   });
 });
 
@@ -32,6 +43,6 @@ app.post("/create", (req, res) => {
   );
 });
 
-app.listen(8080, () => {
-  console.log("Server is running on port 3400");
+app.listen(8975, () => {
+  console.log("starting");
 });
